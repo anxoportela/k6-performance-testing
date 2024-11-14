@@ -39,6 +39,7 @@ La estructura del proyecto es la siguiente:
     performance.yml           # Configuración de GitHub Actions para ejecutar las pruebas
 tests/
   test.js                     # Script con las pruebas de rendimiento con K6
+LICENSE
 README.md                     # Este archivo
 ```
 
