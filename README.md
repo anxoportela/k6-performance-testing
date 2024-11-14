@@ -1,12 +1,12 @@
-### **⚙️ Kata Intermedia: Validar Tiempo de Respuesta**
+### **🚀 Kata Avanzada: Cargar Múltiples Usuarios en Paralelo**
 
 #### 📑 Instrucciones
 
-1. **Objetivo**: Mide el tiempo de respuesta de una solicitud y verifica que esté por debajo de un umbral (por ejemplo, 200 ms).
+1. **Objetivo**: Simula un escenario donde múltiples usuarios realizan solicitudes **GET** a la misma API en paralelo.
 2. **Endpoint**: `https://jsonplaceholder.typicode.com/users`
 3. **Pasos**:
-   - Realiza una solicitud **GET** a la API pública.
-   - Valida que el tiempo de respuesta esté por debajo de **200ms**.
+   - Usa **`vus`** (usuarios virtuales) para realizar múltiples solicitudes en paralelo.
+   - Configura **10 usuarios virtuales** y realiza la prueba durante **30 segundos**.
 
 ### 📥 Respuesta
 
@@ -17,11 +17,16 @@
 import http from 'k6/http';
 import { check } from 'k6';
 
+export const options = {
+  vus: 10, // 10 usuarios virtuales
+  duration: '30s', // Duración de la prueba
+};
+
 export default function () {
   const res = http.get('https://jsonplaceholder.typicode.com/users');
   check(res, {
     'status was 200': (r) => r.status === 200,
-    'response time is less than 200ms': (r) => r.timings.duration < 200,
+    'response time is less than 500ms': (r) => r.timings.duration < 500,
   });
 }
 ```
