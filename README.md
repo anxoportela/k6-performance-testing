@@ -1,12 +1,12 @@
-### **🔍 Kata Básica: Prueba de Carga Simple**
+### **⚙️ Kata Intermedia: Validar Tiempo de Respuesta**
 
 #### 📑 Instrucciones
 
-1. **Objetivo**: Verifica que tu servidor responde correctamente a una solicitud **GET**.
+1. **Objetivo**: Mide el tiempo de respuesta de una solicitud y verifica que esté por debajo de un umbral (por ejemplo, 200 ms).
 2. **Endpoint**: `https://jsonplaceholder.typicode.com/users`
 3. **Pasos**:
-   - Realiza una solicitud **GET** a la API pública de **JSONPlaceholder**.
-   - Valida que el código de estado de la respuesta sea **200**.
+   - Realiza una solicitud **GET** a la API pública.
+   - Valida que el tiempo de respuesta esté por debajo de **200ms**.
 
 ### 📥 Respuesta
 
@@ -21,6 +21,7 @@ export default function () {
   const res = http.get('https://jsonplaceholder.typicode.com/users');
   check(res, {
     'status was 200': (r) => r.status === 200,
+    'response time is less than 200ms': (r) => r.timings.duration < 200,
   });
 }
 ```
