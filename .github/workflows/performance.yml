@@ -23,8 +23,10 @@ jobs:
 
     - name: Install K6 🛠️
       run: |
-        sudo apt update
-        sudo apt install k6
+            curl -s https://dl.k6.io/key.gpg | sudo tee /etc/apt/trusted.gpg.d/k6.asc
+            echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+            sudo apt update
+            sudo apt install k6
 
     - name: Run K6 performance tests 🏃‍♂️
       run: |
