@@ -14,27 +14,27 @@
   <summary>Haz clic aquí para ver la respuesta</summary>
 
 ```javascript
+import { check } from 'k6';
 import http from 'k6/http';
-import { check, Trend } from 'k6';
+import { Trend, Rate } from 'k6/metrics';
 
-let responseTimeTrend = new Trend('response_time'); // Métrica personalizada
+// Define custom metrics
+let responseTimeTrend = new Trend('response_time');
+let successRate = new Rate('success_rate');
 
 export default function () {
-  const res = http.get('https://jsonplaceholder.typicode.com/users');
-  check(res, {
-    'status was 200': (r) => r.status === 200,
-  });
-
-  // Registra el tiempo de respuesta
-  responseTimeTrend.add(res.timings.duration);
+    let res = http.get('https://jsonplaceholder.typicode.com/users');
+    
+    // Track response time with Trend
+    responseTimeTrend.add(res.timings.duration);
+    
+    // Check if the response is 200 and track success rate
+    let success = check(res, {
+        'status is 200': (r) => r.status === 200,
+    });
+    successRate.add(success);
 }
 
-export function handleSummary(data) {
-  console.log(`Promedio de tiempo de respuesta: ${data.metrics.response_time.avg}ms`);
-  return {
-    'summary.json': JSON.stringify(data),
-  };
-}
 ```
 
 </details>
