@@ -1,12 +1,14 @@
-### **📊 Kata Avanzada: Medir el Rendimiento con Métricas Personalizadas**
+### **📈 Kata Completa: Test de Carga Completa y Reportes de Resultados**
 
 #### 📑 Instrucciones
 
-1. **Objetivo**: Mide métricas personalizadas como el tiempo de respuesta promedio y muestra el resultado en el reporte.
+1. **Objetivo**: Realiza un **test de carga** con múltiples usuarios y genera un reporte de resultados, incluyendo métricas avanzadas.
 2. **Endpoint**: `https://jsonplaceholder.typicode.com/users`
 3. **Pasos**:
-   - Realiza varias solicitudes **GET** a la API.
-   - Registra y muestra el tiempo de respuesta promedio en el reporte.
+   - Configura **10 usuarios virtuales** para realizar solicitudes durante **5 minutos**.
+   - Mide el rendimiento y genera un reporte del
+
+ tiempo de respuesta promedio.
 
 ### 📥 Respuesta
 
@@ -18,6 +20,11 @@ import http from 'k6/http';
 import { check, Trend } from 'k6';
 
 let responseTimeTrend = new Trend('response_time'); // Métrica personalizada
+
+export const options = {
+  vus: 10, // 10 usuarios virtuales
+  duration: '5m', // 5 minutos
+};
 
 export default function () {
   const res = http.get('https://jsonplaceholder.typicode.com/users');

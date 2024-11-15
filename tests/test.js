@@ -1,20 +1,27 @@
-import { check } from 'k6';
 import http from 'k6/http';
-import { Trend, Rate } from 'k6/metrics';
+import { check } from 'k6';
+import { Trend } from 'k6/metrics';
 
-// Define custom metrics
-let responseTimeTrend = new Trend('response_time');
-let successRate = new Rate('success_rate');
+let responseTimeTrend = new Trend('response_time'); // Métrica personalizada
+
+export const options = {
+  vus: 10, // 10 usuarios virtuales
+  duration: '5m', // 5 minutos
+};
 
 export default function () {
-    let res = http.get('https://jsonplaceholder.typicode.com/users');
-    
-    // Track response time with Trend
-    responseTimeTrend.add(res.timings.duration);
-    
-    // Check if the response is 200 and track success rate
-    let success = check(res, {
-        'status is 200': (r) => r.status === 200,
-    });
-    successRate.add(success);
+  const res = http.get('https://jsonplaceholder.typicode.com/users');
+  check(res, {
+    'status was 200': (r) => r.status === 200,
+  });
+
+  // Registra el tiempo de respuesta
+  responseTimeTrend.add(res.timings.duration);
+}
+
+export function handleSummary(data) {
+  console.log(`Promedio de tiempo de respuesta: ${data.metrics.response_time.avg}ms`);
+  return {
+    'summary.json': JSON.stringify(data),
+  };
 }
