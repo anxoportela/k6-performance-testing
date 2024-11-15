@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ### **💡 Kata de Stress: Test de Larga Duración**
 
 #### 📑 Instrucciones
