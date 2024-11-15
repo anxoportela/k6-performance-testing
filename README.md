@@ -1,12 +1,12 @@
-### **🔐 Kata de Autenticación: Solicitud con Token de Autenticación**
+### **💥 Kata de Error Handling: Manejo de Respuestas de Error 404**
 
 #### 📑 Instrucciones
 
-1. **Objetivo**: Realiza una solicitud a una API que requiere autenticación utilizando un **token Bearer**.
-2. **Endpoint**: `https://httpbin.org/bearer`
+1. **Objetivo**: Simula un error 404 al solicitar un recurso que no existe y maneja la respuesta adecuadamente.
+2. **Endpoint**: `https://jsonplaceholder.typicode.com/invalid-endpoint`
 3. **Pasos**:
-   - Configura el encabezado **Authorization** con un token Bearer.
-   - Realiza la solicitud **GET** y valida que el token de autenticación sea correcto.
+   - Realiza una solicitud **GET** a un endpoint no válido.
+   - Verifica que el código de estado sea **404**.
 
 ### 📥 Respuesta
 
@@ -18,16 +18,9 @@ import http from 'k6/http';
 import { check } from 'k6';
 
 export default function () {
-  const url = 'https://httpbin.org/bearer';
-  const params = {
-    headers: {
-      Authorization: 'Bearer <your-token-here>',
-    },
-  };
-  const res = http.get(url, params);
+  const res = http.get('https://jsonplaceholder.typicode.com/invalid-endpoint');
   check(res, {
-    'status was 200': (r) => r.status === 200,
-    'authenticated': (r) => r.json('authenticated') === true,
+    'status was 404': (r) => r.status === 404,
   });
 }
 ```
