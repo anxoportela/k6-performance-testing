@@ -1,12 +1,12 @@
-### **🔄 Kata de Petición con Datos Dinámicos: Validar Respuesta con Datos Variables**
+### **📊 Kata Avanzada: Medir el Rendimiento con Métricas Personalizadas**
 
 #### 📑 Instrucciones
 
-1. **Objetivo**: Realiza una solicitud **GET** y valida que los datos devueltos coincidan con los datos esperados.
-2. **Endpoint**: `https://jsonplaceholder.typicode.com/users/1`
+1. **Objetivo**: Mide métricas personalizadas como el tiempo de respuesta promedio y muestra el resultado en el reporte.
+2. **Endpoint**: `https://jsonplaceholder.typicode.com/users`
 3. **Pasos**:
-   - Realiza una solicitud para obtener un usuario específico.
-   - Verifica que los datos del usuario sean correctos, como el nombre **"Leanne Graham"**.
+   - Realiza varias solicitudes **GET** a la API.
+   - Registra y muestra el tiempo de respuesta promedio en el reporte.
 
 ### 📥 Respuesta
 
@@ -15,14 +15,25 @@
 
 ```javascript
 import http from 'k6/http';
-import { check } from 'k6';
+import { check, Trend } from 'k6';
+
+let responseTimeTrend = new Trend('response_time'); // Métrica personalizada
 
 export default function () {
-  const res = http.get('https://jsonplaceholder.typicode.com/users/1');
+  const res = http.get('https://jsonplaceholder.typicode.com/users');
   check(res, {
     'status was 200': (r) => r.status === 200,
-    'user name is Leanne Graham': (r) => r.json('name') === 'Leanne Graham',
   });
+
+  // Registra el tiempo de respuesta
+  responseTimeTrend.add(res.timings.duration);
+}
+
+export function handleSummary(data) {
+  console.log(`Promedio de tiempo de respuesta: ${data.metrics.response_time.avg}ms`);
+  return {
+    'summary.json': JSON.stringify(data),
+  };
 }
 ```
 
