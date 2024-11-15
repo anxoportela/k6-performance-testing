@@ -17,7 +17,8 @@
 
 ```javascript
 import http from 'k6/http';
-import { check, Trend } from 'k6';
+import { check } from 'k6';
+import { Trend } from 'k6/metrics';
 
 let responseTimeTrend = new Trend('response_time'); // Métrica personalizada
 
