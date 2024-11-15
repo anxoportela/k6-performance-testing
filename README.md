@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ### **⚙️ Kata Intermedia: Validar Tiempo de Respuesta**
 
 #### 📑 Instrucciones
