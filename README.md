@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ### **🔄 Kata de Petición con Datos Dinámicos: Validar Respuesta con Datos Variables**
 
 #### 📑 Instrucciones
