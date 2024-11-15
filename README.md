@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ### **🔐 Kata de Autenticación: Solicitud con Token de Autenticación**
 
 #### 📑 Instrucciones
