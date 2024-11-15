@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ### **📈 Kata Completa: Test de Carga Completa y Reportes de Resultados**
 
 #### 📑 Instrucciones
@@ -43,6 +44,7 @@ export function handleSummary(data) {
     'summary.json': JSON.stringify(data),
   };
 }
+
 ```
 
 </details>
