@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ### **🔍 Kata Básica: Prueba de Carga Simple**
 
 #### 📑 Instrucciones
