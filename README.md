@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ### **🚀 Kata Avanzada: Cargar Múltiples Usuarios en Paralelo**
 
 #### 📑 Instrucciones
