@@ -1,3 +1,4 @@
+<!-- markdownlint-disable -->
 ### **💥 Kata de Error Handling: Manejo de Respuestas de Error 404**
 
 #### 📑 Instrucciones
